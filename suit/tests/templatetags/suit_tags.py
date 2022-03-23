@@ -1,7 +1,9 @@
 import datetime
+
+from django import forms
 from django.conf import settings
 from django.test import TestCase
-from django.utils.encoding import python_2_unicode_compatible
+from six import python_2_unicode_compatible
 from suit import utils
 from suit.templatetags.suit_tags import suit_conf, suit_date, suit_time, \
     admin_url, field_contents_foreign_linked, suit_bc, suit_bc_value
@@ -29,7 +31,6 @@ class City(models.Model):
 
 class CityAdmin(admin.ModelAdmin):
     readonly_fields = ('country',)
-    pass
 
 
 admin.site.register(Country)
@@ -82,15 +83,9 @@ class SuitTagsTestCase(TestCase):
 
         # Create form
         request = None
-        form = ma.get_form(request, city)
-        form.instance = city
-        ro_field = AdminReadonlyField(form, 'country', True, ma)
+        form_class = ma.get_form(request, city)
+        ro_field = AdminReadonlyField(form_class(instance=city), 'country', True, ma)
 
-        self.assertEqual(country.name,
-                         field_contents_foreign_linked(ro_field))
-
-        # Now it should return as link
-        ro_field.model_admin.linked_readonly_fields = ('country',)
         assert admin_url(country) in field_contents_foreign_linked(ro_field)
 
     def test_suit_bc(self):

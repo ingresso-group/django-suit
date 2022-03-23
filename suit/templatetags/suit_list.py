@@ -34,8 +34,8 @@ def paginator_number(cl, i):
     """
     if i == DOT:
         return mark_safe(
-                '<li class="disabled"><a href="#" onclick="return false;">..'
-                '.</a></li>')
+            '<li class="disabled"><a href="#" onclick="return false;">..'
+            '.</a></li>')
     elif i == cl.page_num:
         return mark_safe(
             '<li class="active"><a href="">%d</a></li> ' % (i + 1))
@@ -52,11 +52,11 @@ def paginator_info(cl):
 
     # If we show all rows of list (without pagination)
     if cl.show_all and cl.can_show_all:
-        entries_from = 1 if paginator.count > 0 else 0
+        entries_from = 1
         entries_to = paginator.count
     else:
         entries_from = (
-            (paginator.per_page * cl.page_num) + 1) if paginator.count > 0 else 0
+                (paginator.per_page * (cl.page_num - 1)) + 1) if paginator.count > 0 else 1
         entries_to = entries_from - 1 + paginator.per_page
         if paginator.count < entries_to:
             entries_to = paginator.count
@@ -72,7 +72,7 @@ def pagination(cl):
     paginator, page_num = cl.paginator, cl.page_num
 
     pagination_required = (not cl.show_all or not cl.can_show_all) \
-        and cl.multi_page
+                          and cl.multi_page
     if not pagination_required:
         page_range = []
     else:
@@ -133,7 +133,7 @@ def suit_list_filter_select(cl, spec):
                 value = query_parts[key][0]
                 matched_key = key
             elif key.startswith(
-                            field_key + '__') or '__' + field_key + '__' in key:
+                    field_key + '__') or '__' + field_key + '__' in key:
                 value = query_parts[key][0]
                 matched_key = key
 
@@ -276,6 +276,6 @@ def cells_handler(results, cl):
 
                 result[col] = mark_safe(
                     result[col].replace(cell_pattern,
-                                 td_pattern + dict_to_attrs(attrs)))
+                                        td_pattern + dict_to_attrs(attrs)))
 
     return results

@@ -3,6 +3,7 @@ from django import template
 from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.http import HttpRequest
+from six import string_types
 
 try:
     from django.core.urlresolvers import reverse, resolve
@@ -10,11 +11,7 @@ except ImportError:
     # For Django >= 2.0
     from django.urls import reverse, resolve
 
-try:
-    from django.utils.six import string_types
-except ImportError:
-    # For Django < 1.4.2
-    string_types = basestring,
+
 
 import re
 import warnings

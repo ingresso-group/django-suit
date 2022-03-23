@@ -50,7 +50,7 @@ class SuitListTestCase(UserTestCaseMixin, ModelsTestCaseMixin):
         output = paginator_number(self.changelist, '.')
         self.assertTrue('...' in output)
 
-        output = paginator_number(self.changelist, 0)
+        output = paginator_number(self.changelist, 1)
         self.assertTrue('active' in output)
 
     def test_paginator_info(self):
