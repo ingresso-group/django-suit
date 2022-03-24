@@ -35,7 +35,7 @@ def paginator_number(cl, i):
     if i == cl.paginator.ELLIPSIS:
         return format_html('<span class="disabled">{}</span> ', cl.paginator.ELLIPSIS)
     elif i == cl.page_num:
-        return format_html('<span class="this-page">{}</span> ', i)
+        return format_html('<span class="active">{}</span> ', i)
     else:
         return format_html(
             '<a href="{}"{}>{}</a> ',

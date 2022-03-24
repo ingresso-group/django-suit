@@ -53,7 +53,7 @@ class SuitListTestCase(UserTestCaseMixin, ModelsTestCaseMixin):
         self.assertIn(str(Paginator.ELLIPSIS), output)
 
         output = paginator_number(self.changelist, 1)
-        self.assertIn('this-page', output)
+        self.assertIn('active', output)
 
     def test_paginator_info(self):
         output = paginator_info(self.changelist)
