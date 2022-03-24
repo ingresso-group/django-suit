@@ -33,12 +33,13 @@ def paginator_number(cl, i):
     Generates an individual page index link in a paginated list.
     """
     if i == cl.paginator.ELLIPSIS:
-        return format_html('<span class="disabled">{}</span> ', cl.paginator.ELLIPSIS)
+        return format_html('<li class="disabled"><a href="#" onclick="return false;">{}'
+                           '.</a></li>', cl.paginator.ELLIPSIS)
     elif i == cl.page_num:
-        return format_html('<span class="active">{}</span> ', i)
+        return format_html('<li class="active"><a href="">{}</a></li> ', i)
     else:
         return format_html(
-            '<a href="{}"{}>{}</a> ',
+            '<li><a href="{}"{}>{}</a></li> ',
             cl.get_query_string({PAGE_VAR: i}),
             mark_safe(' class="end"' if i == cl.paginator.num_pages else ''),
             i,
