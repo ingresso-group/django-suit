@@ -28,6 +28,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware'
 ]
 
 if django.VERSION < (1, 10):
@@ -68,7 +69,7 @@ try:
     TEMPLATE_DIRS = ()
 
     TEMPLATE_CONTEXT_PROCESSORS = list(TCP) + [
-        'django.core.context_processors.request',
+        'django.template.context_processors.request',
     ]
 except ImportError:  # Django 1.9+
     TEMPLATES = [

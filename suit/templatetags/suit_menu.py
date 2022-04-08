@@ -3,18 +3,9 @@ from django import template
 from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.http import HttpRequest
+from six import string_types
 
-try:
-    from django.core.urlresolvers import reverse, resolve
-except ImportError:
-    # For Django >= 2.0
-    from django.urls import reverse, resolve
-
-try:
-    from django.utils.six import string_types
-except ImportError:
-    # For Django < 1.4.2
-    string_types = basestring,
+from django.urls import reverse, resolve
 
 import re
 import warnings
@@ -24,11 +15,7 @@ from suit import utils
 register = template.Library()
 
 django_version = utils.django_major_version()
-
-if django_version < (1, 9):
-    simple_tag = register.assignment_tag
-else:
-    simple_tag = register.simple_tag
+simple_tag = register.simple_tag
 
 
 @simple_tag(takes_context=True)
@@ -144,7 +131,7 @@ class Menu(object):
     def make_app(self, app_def):
         if isinstance(app_def, dict):
             app = app_def.copy()
-        elif isinstance(app_def, string_types):
+        elif isinstance(app_def, str):
             if app_def == '-':
                 app = self.make_separator()
             else:
