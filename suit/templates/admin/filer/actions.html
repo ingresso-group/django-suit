@@ -1,7 +1,16 @@
 {% load i18n %}
+
 <div class="actions">
-    {% for field in action_form %}{% if field.label %}<label><span class="action-label">{{ field.label }}</span> {% endif %}{{ field }}{% if field.label %}</label>{% endif %}{% endfor %}
-    &nbsp;
+    {% for field in action_form %}
+        {% if field.label %}
+            <label><span class="action-label">{{ field.label }}</span>
+        {% endif %}
+        {{ field }}
+        {% if field.label %}
+            </label>
+        {% endif %}
+    {% endfor %}
+&nbsp;
     <button type="submit" class="btn button" title="{% trans "Run the selected action" %}" name="index" value="{{ action_index|default:0 }}">{% trans "Go" %}</button>
     &nbsp;
     {% if actions_selection_counter %}
