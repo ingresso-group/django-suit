@@ -1,11 +1,11 @@
 from copy import copy
-from inspect import getargspec
+from inspect import getfullargspec as getargspec
 from django import template
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
 from django.contrib.admin.templatetags.admin_list import result_list
 from django.contrib.admin.views.main import ALL_VAR, PAGE_VAR
-from django.utils.html import escape, format_html
+from django.utils.html import format_html
 from suit.compat import tpl_context_class
 
 try:
